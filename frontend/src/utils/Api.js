@@ -69,7 +69,7 @@ class Api {
 }
 
 export const api = new Api({
-  url: `mesto-front.ruslan-zykov.nomoreparties.sbs`,
+  url: `https://api.mesto-front.ruslan-z.nomoredomains.work`,
   headers: {
     'Content-Type': 'application/json',
   },

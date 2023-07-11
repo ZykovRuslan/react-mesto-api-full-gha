@@ -43,7 +43,7 @@ class ApiAuth {
 }
 
 export const apiAuth = new ApiAuth({
-  baseUrl: `mesto-front.ruslan-zykov.nomoreparties.sbs`,
+  baseUrl: `https://api.mesto-front.ruslan-z.nomoredomains.work`,
   headers: {
     'Content-Type': 'application/json',
   },
