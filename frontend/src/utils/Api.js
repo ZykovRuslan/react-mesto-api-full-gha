@@ -1,7 +1,6 @@
 class Api {
   constructor(options) {
     this._url = options.url;
-    this._headers = options.headers;
   }
 
   _checkResponse(res) {
@@ -19,7 +18,10 @@ class Api {
 
     return fetch(this._url + path, {
       method,
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('JWT')}`,
+        'Content-Type': 'application/json',
+      },
       body,
     }).then(this._checkResponse);
   }
@@ -70,8 +72,4 @@ class Api {
 
 export const api = new Api({
   url: `https://api.mesto-front.ruslan-z.nomoredomains.work`,
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('JWT')}`,
-    'Content-Type': 'application/json',
-  },
 });
