@@ -7,13 +7,13 @@ function Header({ isLoggedIn, email, onSignOut }) {
   return (
     <header className='header'>
       <img src={logo} className='header__logo' alt='Логотип Места России' />
-      {location.pathname === '/sign-in' && (
-        <Link className='header__link' to={'/sign-up'}>
+      {location.pathname === '/signin' && (
+        <Link className='header__link' to={'/signup'}>
           Регистрация
         </Link>
       )}
-      {location.pathname === '/sign-up' && (
-        <Link className='header__link' to={'/sign-in'}>
+      {location.pathname === '/signup' && (
+        <Link className='header__link' to={'/signin'}>
           Вход
         </Link>
       )}
@@ -21,7 +21,7 @@ function Header({ isLoggedIn, email, onSignOut }) {
         <>
           <div className='header__align'>
             {email}
-            <Link className='header__link' to={'/sign-in'} onClick={onSignOut}>
+            <Link className='header__link' to={'/signin'} onClick={onSignOut}>
               Выйти
             </Link>
           </div>

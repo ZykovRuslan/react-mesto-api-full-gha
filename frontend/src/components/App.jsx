@@ -187,11 +187,11 @@ function App() {
             }
           />
           <Route
-            path='sign-up'
+            path='signup'
             element={<Register onRegister={heandleRegister} isLoggedIn={isLoggedIn} />}
           />
-          <Route path='sign-in' element={<Login onAuth={heandleLogin} isLoggedIn={isLoggedIn} />} />
-          <Route path='*' element={isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />} />
+          <Route path='signin' element={<Login onAuth={heandleLogin} isLoggedIn={isLoggedIn} />} />
+          <Route path='*' element={isLoggedIn ? <Navigate to='/' /> : <Navigate to='/signin' />} />
         </Routes>
         <Footer />
         <InfoTooltip
