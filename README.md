@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP 158.160.105.126
+IP 158.160.111.209
 
 Frontend https://mesto-front.ruslan-zykov.nomoreparties.sbs
 
