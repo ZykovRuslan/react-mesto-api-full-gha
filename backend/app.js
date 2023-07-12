@@ -1,5 +1,4 @@
 const express = require('express');
-// const path = require('path');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
