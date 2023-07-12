@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
@@ -12,7 +12,7 @@ const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
-const staticFolderPath = path.join(__dirname, 'public');
+// const staticFolderPath = path.join(__dirname, 'public');
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
@@ -40,7 +40,7 @@ app.use(limiter);
 
 app.use(express.json());
 
-app.use(express.static(staticFolderPath));
+// app.use(express.static(staticFolderPath));
 
 app.use(routes);
 

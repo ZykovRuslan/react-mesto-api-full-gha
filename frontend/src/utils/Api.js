@@ -69,7 +69,7 @@ class Api {
 }
 
 export const api = new Api({
-  url: `http://localhost:3000`,
+  url: `https://api.mesto-front.ruslan-z.nomoredomains.work`,
   headers: {
     authorization: `Bearer ${localStorage.getItem('JWT')}`,
     'Content-Type': 'application/json',
