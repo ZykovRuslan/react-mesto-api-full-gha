@@ -41,11 +41,11 @@ class Api {
   }
 
   likeCard(id) {
-    return this._fetch(`/cards/likes/${id}`, 'PUT');
+    return this._fetch(`/cards/${id}/likes`, 'PUT');
   }
 
   dislikeCard(id) {
-    return this._fetch(`/cards/likes/${id}`, 'DELETE');
+    return this._fetch(`/cards/${id}/likes`, 'DELETE');
   }
 
   changeLikeCardStatus(id, hasLike) {
@@ -69,8 +69,9 @@ class Api {
 }
 
 export const api = new Api({
-  url: `https://api.mesto-front.ruslan-z.nomoredomains.work`,
+  url: `http://localhost:3000`,
   headers: {
+    authorization: `Bearer ${localStorage.getItem('JWT')}`,
     'Content-Type': 'application/json',
   },
 });

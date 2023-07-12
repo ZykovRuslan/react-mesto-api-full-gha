@@ -73,7 +73,7 @@ function App() {
 
   function handleCardLike(likes, _id) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = likes.some((i) => i._id === currentUser._id);
+    const isLiked = likes.some((i) => i === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
@@ -137,7 +137,7 @@ function App() {
   function heandleLogin(email, password) {
     apiAuth
       .signin({ email, password })
-      .then((res) => localStorage.setItem('JWT', res.token))
+      .then((res) => localStorage.setItem('JWT', res.jwt))
       .then(() => setIsLoggedIn(true))
       .catch(console.log);
   }
@@ -147,8 +147,8 @@ function App() {
       if (!localStorage.getItem('JWT')) return;
       try {
         const res = await apiAuth.checkToken(localStorage.getItem('JWT'));
-        if (res.data) {
-          setEmail(res.data.email);
+        if (res) {
+          setEmail(res.email);
           setIsLoggedIn(true);
         }
       } catch (err) {
