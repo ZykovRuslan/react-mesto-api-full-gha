@@ -12,20 +12,6 @@ const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
-// const staticFolderPath = path.join(__dirname, 'public');
-
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-}).then(() => {
-  console.log('connected to db');
-});
-
-const app = express();
-
-app.use(requestLogger); // подключаем логгер запросов
-
-app.use(helmet());
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -33,14 +19,29 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-app.use(cors());
+const app = express();
 
-// Apply the rate limiting middleware to all requests
+mongoose.connect(DB_URL, {
+  useNewUrlParser: true,
+}).then(() => {
+  console.log('connected to db');
+});
+
+app.use(helmet());
+
 app.use(limiter);
 
 app.use(express.json());
 
-// app.use(express.static(staticFolderPath));
+app.use(requestLogger); // подключаем логгер запросов
+
+app.use(cors({ origin: true, credentials: true }));
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use(routes);
 
