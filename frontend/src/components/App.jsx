@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
@@ -29,6 +29,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({ path: '', text: '' });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -124,23 +126,30 @@ function App() {
   function heandleRegister(email, password) {
     apiAuth
       .signup({ email, password })
-      .then((result) => {
-        setEmail(result.data.email);
+      .then(() => {
+        setIsInfoTooltipOpen(true);
         setMessage({ path: correctly, text: 'Вы успешно зарегистрировались!' });
+        navigate('/signin');
       })
-      .catch(() =>
-        setMessage({ path: notCorrectly, text: 'Что-то пошло не так! Попробуйте ещё раз.' }),
-      )
-      .finally(() => setIsInfoTooltipOpen(true));
-  }
+      .catch(() => {
+        setIsInfoTooltipOpen(true);
+        setMessage({ path: notCorrectly, text: 'Что-то пошло не так! Попробуйте ещё раз.' });
+      });
+  }  
 
-  function heandleLogin(email, password) {
-    apiAuth
-      .signin({ email, password })
-      .then((res) => localStorage.setItem('JWT', res.jwt))
-      .then(() => setIsLoggedIn(true))
-      .catch(console.log);
-  }
+  function heandleLogin(email, password) { 
+    apiAuth 
+      .signin({ email, password }) 
+      .then((res) => {
+        localStorage.setItem('JWT', res.jwt);
+        setEmail(email);
+        setIsLoggedIn(true);
+      })
+      .catch(() => {
+        setIsInfoTooltipOpen(true);
+        setMessage({ path: notCorrectly, text: 'Ошибка при входе. Проверьте свои данные и повторите попытку.' });
+      });
+  }  
 
   useEffect(() => {
     async function checkAuth() {
